@@ -5,6 +5,10 @@ TokenPhrase is a simple gem that generates unique phrases for you to use in your
 
 "Why?" you may be asking. Why not? Token phrases give your app a little personality and make support a lot easier.
 
+## My changes
+
+I needed a simpler version of this gem for a project, so I made it only index adjectives and nouns, plus numbers only go to 1000.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +26,7 @@ Or install it yourself as:
 ## TokenPhrase.generate(separator = nil, dictionaries = {})
 
 ### Defaults
-By default, TokenPhrase uses the included dictionaries, separates everything with a hyphen (-), and appends a random number between 1 and 1,000,000 :
+By default, TokenPhrase uses the included dictionaries, separates everything with a hyphen (-), and appends a random number between 1 and 1,000 :
 
 ```ruby
 TokenPhrase.generate
@@ -39,7 +43,7 @@ TokenPhrase.generate
 With the current dictionaries and numbers, there are 4,199,040,000,000 (four trillion!) unique possibilites.
 
 ### Separators
-If you would like a different separator, just pass a string as an argument: 
+If you would like a different separator, just pass a string as an argument:
 
 ```ruby
 TokenPhrase.generate('$')
@@ -70,7 +74,7 @@ TokenPhrase.generate :adjectives => %w(glowing)
 "soft-chiffon-tartan-Saturn-29752"
 "tailored-azure-honeycomb-Saturn-668823"
 ```
-You can pass multiple dictionaries: 
+You can pass multiple dictionaries:
 
 ```ruby
 5.times { p TokenPhrase.generate :colors => %w(black white), :nouns => %w(cat dog) }
@@ -121,7 +125,7 @@ your_patterns = TokenPhrase.patterns %w(magic-eye)
 
 ## TokenPhrase.permutations(dictionaries = {})
 
-If you want to see how many unique combinations you can generate, use the permutations method. Just pass it the dictionaries hash the same way you would use TokenPhrase.generate: 
+If you want to see how many unique combinations you can generate, use the permutations method. Just pass it the dictionaries hash the same way you would use TokenPhrase.generate:
 
 ```ruby
 TokenPhrase.permutations
@@ -136,13 +140,13 @@ TokenPhrase.permutations :nouns => %w(scooter boat car vroom-vroom), :numbers =>
 
 ## Rails Uniqueness
 
-The simplest way to create a unique token for your models is to add a before_create filter to your model: 
+The simplest way to create a unique token for your models is to add a before_create filter to your model:
 
 ```ruby
 #assuming your Thing model has a token property
 class Thing < ActiveRecord::Base
   before_create :generate_token
-  
+
   private
   def generate_token
     begin
